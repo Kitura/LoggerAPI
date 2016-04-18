@@ -24,7 +24,7 @@ public enum LoggerMessageType: String {
 
 public protocol Logger {
     
-    func log(_ type: LoggerMessageType, msg: String,
+    func log(type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String )
     
 }
