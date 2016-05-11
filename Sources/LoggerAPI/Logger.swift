@@ -15,55 +15,52 @@
  **/
 
 public enum LoggerMessageType: String {
-    case Verbose = "VERBOSE"
-    case Info = "INFO"
-    case Debug = "DEBUG"
-    case Warning = "WARNING"
-    case Error = "ERROR"
+    case verbose = "VERBOSE"
+    case info = "INFO"
+    case debug = "DEBUG"
+    case warning = "WARNING"
+    case error = "ERROR"
 }
 
 public protocol Logger {
-    
+
     func log(_ type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String )
-    
+
 }
 
 public class Log {
-    
+
     public static var logger: Logger?
-    
+
 
     public static func verbose(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
-            logger?.log( .Verbose, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
-    }
-    
-    public class func info(_ msg: String, functionName: String = #function,
-        lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .Info, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
-    }
-    
-    public class func warning(_ msg: String, functionName: String = #function,
-        lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .Warning, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
-    }
-    
-    public class func error(_ msg: String, functionName: String = #function,
-        lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .Error, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
-    }
-    
-    public class func debug(_ msg: String, functionName: String = #function,
-        lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .Warning, msg: msg,
+            logger?.log( .verbose, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
 
-    
-    
+    public class func info(_ msg: String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log( .info, msg: msg,
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
+    }
+
+    public class func warning(_ msg: String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log( .warning, msg: msg,
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
+    }
+
+    public class func error(_ msg: String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log( .error, msg: msg,
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
+    }
+
+    public class func debug(_ msg: String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log( .debug, msg: msg,
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
+    }
 }
