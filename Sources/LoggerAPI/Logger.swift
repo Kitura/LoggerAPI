@@ -20,6 +20,21 @@ public enum LoggerMessageType: String {
     case debug = "DEBUG"
     case warning = "WARNING"
     case error = "ERROR"
+    
+    public func logValue() -> Int {
+        switch self {
+        case .verbose:
+            return 1
+        case .info:
+            return 2
+        case .debug:
+            return 3
+        case .warning:
+            return 4
+        case .error:
+            return 5
+        }
+    }
 }
 
 public protocol Logger {
