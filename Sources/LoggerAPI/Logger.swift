@@ -14,25 +14,25 @@
  * limitations under the License.
  **/
 
-public enum LoggerMessageType: String {
-    case verbose = "VERBOSE"
-    case info = "INFO"
-    case debug = "DEBUG"
-    case warning = "WARNING"
-    case error = "ERROR"
+public enum LoggerMessageType: Int {
+    case debug = 1
+    case verbose = 2
+    case info = 3
+    case warning = 4
+    case error = 5
     
-    public func logValue() -> Int {
+    public var description: String {
         switch self {
         case .verbose:
-            return 1
+            return "VERBOSE"
         case .info:
-            return 2
+            return "INFO"
         case .debug:
-            return 3
+            return "DEBUG"
         case .warning:
-            return 4
+            return "WARNING"
         case .error:
-            return 5
+            return "ERROR"
         }
     }
 }
