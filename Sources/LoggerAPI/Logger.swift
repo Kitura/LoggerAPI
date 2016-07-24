@@ -20,7 +20,9 @@ public enum LoggerMessageType: Int {
     case info = 3
     case warning = 4
     case error = 5
-    
+}
+
+extension LoggerMessageType: CustomStringConvertible {
     public var description: String {
         switch self {
         case .verbose:
