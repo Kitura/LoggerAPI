@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+import Foundation
+
 public enum LoggerMessageType: Int {
     case debug = 1
     case verbose = 2
@@ -79,5 +81,12 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             logger?.log( .debug, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
+    }
+    
+    public class func entry(functionName:  String = #function, className: String = #file,lineNumber: Int = #line) {
+        verbose("ENTRY ->  " + " \(lineNumber) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
+    }
+    public class func exit(functionName:  String = #function, className: String = #file,lineNumber: Int = #line) {
+        verbose("<- EXIT " + " \(lineNumber) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
     }
 }
