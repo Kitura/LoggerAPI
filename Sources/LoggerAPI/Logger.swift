@@ -91,13 +91,13 @@ public class Log {
     
     public class func entry(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log(.entry, msg: "Entry -> \(msg)",
+            logger?.log(.entry, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
     public class func exit(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log(.exit, msg: "\(msg) <- Exit",
+            logger?.log(.exit, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
 }
