@@ -22,6 +22,7 @@ public enum LoggerMessageType: Int {
     case info = 3
     case warning = 4
     case error = 5
+    case entry = 6
 }
 
 extension LoggerMessageType: CustomStringConvertible {
