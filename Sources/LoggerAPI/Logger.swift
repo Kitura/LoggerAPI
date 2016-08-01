@@ -23,6 +23,7 @@ public enum LoggerMessageType: Int {
     case warning = 4
     case error = 5
     case entry = 6
+    case exit = 7
 }
 
 extension LoggerMessageType: CustomStringConvertible {
@@ -40,6 +41,8 @@ extension LoggerMessageType: CustomStringConvertible {
             return "ERROR"
         case .entry:
             return "ENTRY"
+        case .exit:
+            return "EXIT"
         }
     }
 }
@@ -86,16 +89,15 @@ public class Log {
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func entryTwo(_ msg : String, functionName: String = #function,
+    public class func entry(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             logger?.log(.entry, msg: "Entry -> \(msg)",
-                        functionName: functionName, lineNum: lineNum, fileName: fileName)
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func entry(functionName:  String = #function, className: String = #file,lineNum: Int = #line) {
-        verbose("ENTRY ->  " + " \(lineNum) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
-    }
-    public class func exit(functionName:  String = #function, className: String = #file,lineNum: Int = #line) {
-        verbose("<- EXIT " + " \(lineNum) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
+    public class func exit(_msg: String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log(.exit, msg: "\(msg) <- EXIT",
+                functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
 }
