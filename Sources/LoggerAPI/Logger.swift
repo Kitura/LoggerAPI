@@ -83,10 +83,16 @@ public class Log {
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func entry(functionName:  String = #function, className: String = #file,lineNumber: Int = #line) {
-        verbose("ENTRY ->  " + " \(lineNumber) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
+    public class func entryTwo(_ msg : String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file) {
+            logger?.log(.entry, msg: "Entry -> \(msg)",
+                        functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
-    public class func exit(functionName:  String = #function, className: String = #file,lineNumber: Int = #line) {
-        verbose("<- EXIT " + " \(lineNumber) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
+    
+    public class func entry(functionName:  String = #function, className: String = #file,lineNum: Int = #line) {
+        verbose("ENTRY ->  " + " \(lineNum) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
+    }
+    public class func exit(functionName:  String = #function, className: String = #file,lineNum: Int = #line) {
+        verbose("<- EXIT " + " \(lineNum) " + functionName + " in " + ((className as NSString).lastPathComponent as NSString).deletingPathExtension)
     }
 }
