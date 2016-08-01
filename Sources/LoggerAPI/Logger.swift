@@ -37,6 +37,8 @@ extension LoggerMessageType: CustomStringConvertible {
             return "WARNING"
         case .error:
             return "ERROR"
+        case .entry:
+            return "ENTRY"
         }
     }
 }
