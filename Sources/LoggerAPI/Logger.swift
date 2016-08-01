@@ -95,9 +95,9 @@ public class Log {
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func exit(_msg: String, functionName: String = #function,
+    public class func exit(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log(.exit, msg: "\(msg) <- EXIT",
+            logger?.log(.exit, msg: "\(msg) <- Exit",
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
 }
