@@ -14,8 +14,6 @@
  * limitations under the License.
  **/
 
-import Foundation
-
 public enum LoggerMessageType: Int {
     case debug = 1
     case verbose = 2
