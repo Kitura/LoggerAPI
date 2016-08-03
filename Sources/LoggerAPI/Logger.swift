@@ -50,7 +50,7 @@ public protocol Logger {
     func log(_ type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String )
     
-    func isLogging(_ level: LoggerMessageType)
+    func isLogging(_ level: LoggerMessageType) -> Bool
 
 }
 
