@@ -15,13 +15,13 @@
  **/
 
 public enum LoggerMessageType: Int {
-    case debug = 1
-    case verbose = 2
-    case info = 3
-    case warning = 4
-    case error = 5
-    case entry = 6
-    case exit = 7
+    case entry = 1
+    case exit = 2
+    case debug = 3
+    case verbose = 4
+    case info = 5
+    case warning = 6
+    case error = 7
 }
 
 extension LoggerMessageType: CustomStringConvertible {
@@ -49,6 +49,8 @@ public protocol Logger {
 
     func log(_ type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String )
+    
+    func isLogging(_ level: LoggerMessageType)
 
 }
 
@@ -98,4 +100,9 @@ public class Log {
             logger?.log(.exit, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
+    
+    public class func isLogging(_ level: LoggerMessageType) -> Bool {
+        return logger!.isLogging(level)
+    }
+    
 }
