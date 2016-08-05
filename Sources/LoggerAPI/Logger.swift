@@ -48,9 +48,9 @@ extension LoggerMessageType: CustomStringConvertible {
 public protocol Logger {
 
     func log(_ type: LoggerMessageType, msg: String,
-        functionName: String, lineNum: Int, fileName: String )
+        functionName: String, lineNum: Int, fileName: String)
     
-    func isLogging(_ level: LoggerMessageType) -> Bool
+    func isLogging(_ type: LoggerMessageType) -> Bool
 
 }
 
@@ -101,8 +101,10 @@ public class Log {
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func isLogging(_ level: LoggerMessageType) -> Bool {
-        return logger!.isLogging(level)
+    public class func isLogging(_ type: LoggerMessageType) -> Bool {
+        guard let logger = logger else {
+            return false
+        }
+        return logger.isLogging(level)
     }
-    
 }
