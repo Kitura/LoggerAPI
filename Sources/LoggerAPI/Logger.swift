@@ -50,7 +50,7 @@ public protocol Logger {
     func log(_ type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String)
     
-    func isLogging(_ type: LoggerMessageType) -> Bool
+    func isLogging(_ level: LoggerMessageType) -> Bool
 
 }
 
@@ -101,10 +101,10 @@ public class Log {
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
     
-    public class func isLogging(_ type: LoggerMessageType) -> Bool {
+    public class func isLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
         }
-        return logger.isLogging(type)
+        return logger.isLogging(level)
     }
 }
