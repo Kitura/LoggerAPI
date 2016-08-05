@@ -27,20 +27,20 @@ public enum LoggerMessageType: Int {
 extension LoggerMessageType: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .verbose:
-            return "VERBOSE"
-        case .info:
-            return "INFO"
-        case .debug:
-            return "DEBUG"
-        case .warning:
-            return "WARNING"
-        case .error:
-            return "ERROR"
         case .entry:
             return "ENTRY"
         case .exit:
             return "EXIT"
+        case .debug:
+            return "DEBUG"
+        case .verbose:
+            return "VERBOSE"
+        case .info:
+            return "INFO"
+        case .warning:
+            return "WARNING"
+        case .error:
+            return "ERROR"
         }
     }
 }
