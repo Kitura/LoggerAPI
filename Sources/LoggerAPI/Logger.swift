@@ -105,6 +105,6 @@ public class Log {
         guard let logger = logger else {
             return false
         }
-        return logger.isLogging(level)
+        return logger.isLogging(type)
     }
 }
