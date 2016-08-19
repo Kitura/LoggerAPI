@@ -49,7 +49,7 @@ public protocol Logger {
 
     func log(_ type: LoggerMessageType, msg: String,
         functionName: String, lineNum: Int, fileName: String)
-    
+
     func isLogging(_ level: LoggerMessageType) -> Bool
 
 }
@@ -88,19 +88,19 @@ public class Log {
             logger?.log( .debug, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
-    
+
     public class func entry(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             logger?.log(.entry, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
-    
+
     public class func exit(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             logger?.log(.exit, msg: msg,
                 functionName: functionName, lineNum: lineNum, fileName: fileName)
     }
-    
+
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
