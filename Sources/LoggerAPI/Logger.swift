@@ -64,7 +64,7 @@ public protocol Logger {
     /// Output a logged message.
     ///
     /// - Parameter type: The type of the message (`LoggerMessageType`) being logged.
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     /// - Parameter lineNum: The line in the source code of the function invoking the
     ///                     logger API.
@@ -74,12 +74,12 @@ public protocol Logger {
         functionName: String, lineNum: Int, fileName: String)
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
-    /// will be outputed in the log (i.e. will not be filtered out).
+    /// will be outputted in the log (i.e. will not be filtered out).
     ///
     /// -Parameter type: The type of message that one wants to know if it will be output in the log.
     ///
     /// - Returns: A Bool indicating whether, if true, or not a message of the specified type
-    ///           (`LoggerMessageType`) would be output.
+    ///           (`LoggerMessageType`) will be outputted.
     func isLogging(_ level: LoggerMessageType) -> Bool
 
 }
@@ -93,7 +93,7 @@ public class Log {
 
     /// Log a log message for use when in verbose logging mode.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -111,7 +111,7 @@ public class Log {
 
     /// Log an informational message.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -129,7 +129,7 @@ public class Log {
 
     /// Log a warning message.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -147,7 +147,7 @@ public class Log {
 
     /// Log an error message.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -165,7 +165,7 @@ public class Log {
 
     /// Log a debuging message.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -183,7 +183,7 @@ public class Log {
     
     /// Log a message when entering a function.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -201,7 +201,7 @@ public class Log {
     
     /// Log a message when exiting a function.
     ///
-    /// - Parameter msg: The mesage to be logged
+    /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
     ///                          Defaults to the actual name of the function invoking
     ///                          this function.
@@ -218,12 +218,12 @@ public class Log {
     }
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
-    /// will be outputed in the log (i.e. will not be filtered out).
+    /// will be outputted in the log (i.e. will not be filtered out).
     ///
-    /// -Parameter type: The type of message that one wants to know if it will be output in the log.
+    /// - Parameter type: The type of message that one wants to know if it will be output in the log.
     ///
     /// - Returns: A Bool indicating whether, if true, or not a message of the specified type
-    ///           (`LoggerMessageType`) would be output.
+    ///           (`LoggerMessageType`) will be outputted.
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
