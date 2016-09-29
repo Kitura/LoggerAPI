@@ -74,12 +74,12 @@ public protocol Logger {
         functionName: String, lineNum: Int, fileName: String)
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
-    /// will be outputted in the log (i.e. will not be filtered out).
+    /// will be output in the log (i.e. will not be filtered out).
     ///
     /// -Parameter type: The type of message that one wants to know if it will be output in the log.
     ///
     /// - Returns: A Bool indicating whether, if true, or not a message of the specified type
-    ///           (`LoggerMessageType`) will be outputted.
+    ///           (`LoggerMessageType`) will be output.
     func isLogging(_ level: LoggerMessageType) -> Bool
 
 }
@@ -218,12 +218,12 @@ public class Log {
     }
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
-    /// will be outputted in the log (i.e. will not be filtered out).
+    /// will be output in the log (i.e. will not be filtered out).
     ///
     /// - Parameter type: The type of message that one wants to know if it will be output in the log.
     ///
     /// - Returns: A Bool indicating whether, if true, or not a message of the specified type
-    ///           (`LoggerMessageType`) will be outputted.
+    ///           (`LoggerMessageType`) will be output.
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
