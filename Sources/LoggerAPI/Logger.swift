@@ -105,8 +105,10 @@ public class Log {
     ///                      invoking this function.
     public static func verbose(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
-            logger?.log( .verbose, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.verbose) {
+                logger.log( .verbose, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
 
     /// Log an informational message.
@@ -123,8 +125,10 @@ public class Log {
     ///                      invoking this function.
     public class func info(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .info, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.info) {
+                logger.log( .info, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
 
     /// Log a warning message.
@@ -141,8 +145,10 @@ public class Log {
     ///                      invoking this function.
     public class func warning(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .warning, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.warning) {
+                logger.log( .warning, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
 
     /// Log an error message.
@@ -159,8 +165,10 @@ public class Log {
     ///                      invoking this function.
     public class func error(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .error, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.error) {
+                logger.log( .error, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
 
     /// Log a debuging message.
@@ -177,8 +185,10 @@ public class Log {
     ///                      invoking this function.
     public class func debug(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log( .debug, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.debug) {
+                logger.log( .debug, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
     
     /// Log a message when entering a function.
@@ -195,8 +205,10 @@ public class Log {
     ///                      invoking this function.
     public class func entry(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log(.entry, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.entry) {
+                logger.log(.entry, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
     
     /// Log a message when exiting a function.
@@ -213,8 +225,10 @@ public class Log {
     ///                      invoking this function.
     public class func exit(_ msg: String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
-            logger?.log(.exit, msg: msg,
-                functionName: functionName, lineNum: lineNum, fileName: fileName)
+            if let logger = logger, logger.isLogging(.exit) {
+                logger.log(.exit, msg: msg,
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
     }
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
