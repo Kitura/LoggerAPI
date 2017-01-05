@@ -103,10 +103,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public static func verbose(_ msg: String, functionName: String = #function,
+    public static func verbose(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
             if let logger = logger, logger.isLogging(.verbose) {
-                logger.log( .verbose, msg: msg,
+                logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -123,10 +123,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func info(_ msg: String, functionName: String = #function,
+    public class func info(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.info) {
-                logger.log( .info, msg: msg,
+                logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -143,10 +143,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func warning(_ msg: String, functionName: String = #function,
+    public class func warning(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.warning) {
-                logger.log( .warning, msg: msg,
+                logger.log( .warning, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -163,10 +163,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func error(_ msg: String, functionName: String = #function,
+    public class func error(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.error) {
-                logger.log( .error, msg: msg,
+                logger.log( .error, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -183,10 +183,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func debug(_ msg: String, functionName: String = #function,
+    public class func debug(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.debug) {
-                logger.log( .debug, msg: msg,
+                logger.log( .debug, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -203,10 +203,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func entry(_ msg: String, functionName: String = #function,
+    public class func entry(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.entry) {
-                logger.log(.entry, msg: msg,
+                logger.log(.entry, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
@@ -223,10 +223,10 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
-    public class func exit(_ msg: String, functionName: String = #function,
+    public class func exit(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.exit) {
-                logger.log(.exit, msg: msg,
+                logger.log(.exit, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
