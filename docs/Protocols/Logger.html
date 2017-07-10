@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
 
@@ -21,6 +24,12 @@
           LoggerAPI Docs
         </a>
          (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -103,38 +112,6 @@ throughout its implementation when logging.</p>
                       <div class="abstract">
                         <p>Output a logged message.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter type: The type of the message (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) being logged.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -157,7 +134,6 @@ throughout its implementation when logging.</p>
                               <td>
                                 <div>
                                   <p>The type of the message (<code>LoggerMessageType</code>) being logged.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -170,7 +146,6 @@ throughout its implementation when logging.</p>
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -183,7 +158,6 @@ throughout its implementation when logging.</p>
                               <td>
                                 <div>
                                   <p>The name of the function invoking the logger API.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -195,8 +169,8 @@ throughout its implementation when logging.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -208,8 +182,8 @@ throughout its implementation when logging.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API.</p>
                                 </div>
                               </td>
                             </tr>
@@ -233,16 +207,9 @@ throughout its implementation when logging.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A function that will indicate if a message with a specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>)
-will be outputted in the log (i.e. will not be filtered out).</p>
+will be output in the log (i.e. will not be filtered out).</p>
 
 <p>-Parameter type: The type of message that one wants to know if it will be output in the log.</p>
-
-<div class="aside aside-returns">
-    <p class="aside-title">Returns</p>
-    A Bool indicating whether, if true, or not a message of the specified type
-      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be outputted.
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -255,8 +222,8 @@ will be outputted in the log (i.e. will not be filtered out).</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A Bool indicating whether, if true, or not a message of the specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be outputted.</p>
-
+                        <p>A Bool indicating whether, if true, or not a message of the specified type
+      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be output.</p>
                       </div>
                     </section>
                   </div>
@@ -269,8 +236,8 @@ will be outputted in the log (i.e. will not be filtered out).</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2016-09-22)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2017-07-10)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

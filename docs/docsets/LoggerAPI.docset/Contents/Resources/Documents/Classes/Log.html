@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
 
@@ -21,6 +24,12 @@
           LoggerAPI Docs
         </a>
          (100% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -118,9 +127,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log7verboseFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log7verboseFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/verbose(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log7verboseFTSS12functionNameSS7lineNumSi8fileNameSS_T_">verbose(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log7verboseFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">verbose(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -130,42 +139,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log a log message for use when in verbose logging mode.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">verbose</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">verbose</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span> <span class="p">)</span></code></pre>
 
                         </div>
@@ -183,7 +162,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -195,8 +173,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -208,8 +187,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -221,8 +201,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -235,9 +216,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log4infoFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log4infoFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/info(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log4infoFTSS12functionNameSS7lineNumSi8fileNameSS_T_">info(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log4infoFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">info(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -247,42 +228,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log an informational message.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">info</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">info</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -300,7 +251,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -312,8 +262,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -325,8 +276,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -338,8 +290,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -352,9 +305,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log7warningFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log7warningFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/warning(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log7warningFTSS12functionNameSS7lineNumSi8fileNameSS_T_">warning(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log7warningFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">warning(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -364,42 +317,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log a warning message.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">warning</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">warning</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -417,7 +340,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -429,8 +351,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -442,8 +365,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -455,8 +379,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -469,9 +394,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log5errorFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log5errorFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/error(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5errorFTSS12functionNameSS7lineNumSi8fileNameSS_T_">error(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5errorFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">error(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -481,42 +406,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log an error message.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">error</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">error</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -534,7 +429,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -546,8 +440,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -559,8 +454,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -572,8 +468,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -586,9 +483,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log5debugFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log5debugFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/debug(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5debugFTSS12functionNameSS7lineNumSi8fileNameSS_T_">debug(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5debugFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">debug(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -598,42 +495,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log a debuging message.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">debug</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">debug</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -651,7 +518,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -663,8 +529,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -676,8 +543,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -689,8 +557,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -703,9 +572,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log5entryFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log5entryFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/entry(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5entryFTSS12functionNameSS7lineNumSi8fileNameSS_T_">entry(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log5entryFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">entry(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -715,42 +584,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log a message when entering a function.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">entry</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">entry</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -768,7 +607,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -780,8 +618,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -793,8 +632,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -806,8 +646,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -820,9 +661,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFC9LoggerAPI3Log4exitFTSS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
+                    <a name="/s:ZFC9LoggerAPI3Log4exitFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_"></a>
                     <a name="//apple_ref/swift/Method/exit(_:functionName:lineNum:fileName:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC9LoggerAPI3Log4exitFTSS12functionNameSS7lineNumSi8fileNameSS_T_">exit(_:functionName:lineNum:fileName:)</a>
+                    <a class="token" href="#/s:ZFC9LoggerAPI3Log4exitFTKT_SS12functionNameSS7lineNumSi8fileNameSS_T_">exit(_:functionName:lineNum:fileName:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -832,42 +673,12 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="abstract">
                         <p>Log a message when exiting a function.</p>
 
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter msg: The message to be logged
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter functionName: The name of the function invoking the logger API.
-                     Defaults to the actual name of the function invoking
-                     this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter lineNum: The line in the source code of the function invoking the
-                logger API. Defaults to the actual line of the actual
-                function invoking this function.
-
-</div>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    Parameter fileName: The file of the source code of the function invoking the
-                 logger API. Defaults to the file of the actual function
-                 invoking this function.
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">exit</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">exit</span><span class="p">(</span><span class="n">_</span> <span class="nv">msg</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">functionName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">function</span><span class="p">,</span>
         <span class="nv">lineNum</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="err">#</span><span class="n">line</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="err">#</span><span class="n">file</span><span class="p">)</span></code></pre>
 
                         </div>
@@ -885,7 +696,6 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               <td>
                                 <div>
                                   <p>The message to be logged</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -897,8 +707,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The name of the function invoking the logger API. Defaults to the actual name of the function invoking this function.</p>
-
+                                  <p>The name of the function invoking the logger API.
+                     Defaults to the actual name of the function invoking
+                     this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -910,8 +721,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The line in the source code of the function invoking the logger API. Defaults to the actual line of the actual function invoking this function.</p>
-
+                                  <p>The line in the source code of the function invoking the
+                logger API. Defaults to the actual line of the actual
+                function invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -923,8 +735,9 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                               </td>
                               <td>
                                 <div>
-                                  <p>The file of the source code of the function invoking the logger API. Defaults to the file of the actual function invoking this function.</p>
-
+                                  <p>The file of the source code of the function invoking the
+                 logger API. Defaults to the file of the actual function
+                 invoking this function.</p>
                                 </div>
                               </td>
                             </tr>
@@ -948,20 +761,7 @@ of the actual <code><a href="../Protocols/Logger.html">Logger</a></code> protoco
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A function that will indicate if a message with a specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>)
-will be outputted in the log (i.e. will not be filtered out).</p>
-
-<div class="aside aside-parameter">
-    <p class="aside-title">Parameter</p>
-    <p>Parameter type: The type of message that one wants to know if it will be output in the log.</p>
-
-</div>
-
-<div class="aside aside-returns">
-    <p class="aside-title">Returns</p>
-    <p>A Bool indicating whether, if true, or not a message of the specified type
-      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be outputted.</p>
-
-</div>
+will be output in the log (i.e. will not be filtered out).</p>
 
                       </div>
                       <div class="declaration">
@@ -985,7 +785,6 @@ will be outputted in the log (i.e. will not be filtered out).</p>
                               <td>
                                 <div>
                                   <p>The type of message that one wants to know if it will be output in the log.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -994,8 +793,8 @@ will be outputted in the log (i.e. will not be filtered out).</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A Bool indicating whether, if true, or not a message of the specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be outputted.</p>
-
+                        <p>A Bool indicating whether, if true, or not a message of the specified type
+      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be output.</p>
                       </div>
                     </section>
                   </div>
@@ -1008,8 +807,8 @@ will be outputted in the log (i.e. will not be filtered out).</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2016-09-22)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2017-07-10)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
