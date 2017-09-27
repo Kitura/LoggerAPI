@@ -2,7 +2,6 @@
 ![macOS](https://img.shields.io/badge/os-macOS-green.svg?style=flat)
 ![Linux](https://img.shields.io/badge/os-linux-green.svg?style=flat)
 ![Apache 2](https://img.shields.io/badge/license-Apache2-blue.svg?style=flat)
-
 [![Build Status](https://travis-ci.org/IBM-Swift/LoggerAPI.svg?branch=master)](https://travis-ci.org/IBM-Swift/LoggerAPI)
 ![](https://img.shields.io/badge/Swift-4.0%20RELEASE-orange.svg?style=flat)
 
