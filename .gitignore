@@ -1,3 +1,5 @@
 .build
 build
-LoggerAPI.xcodeproj
+Packages
+Package.resolved
+*.xcodeproj
