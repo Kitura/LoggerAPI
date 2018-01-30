@@ -22,7 +22,7 @@ import PackageDescription
 let package = Package(
     name: "LoggerAPI",
     targets: [
-        Target(
+        .target(
             name: "LoggerAPI",
             dependencies: []),
     ]
