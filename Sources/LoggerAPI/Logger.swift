@@ -18,6 +18,8 @@
 /// actual logger implementation. It is also used to enable filtering of the log based
 /// on minimal type to log.
 public enum LoggerMessageType: Int {
+    /// Log message type for logging an insane level of detail
+    case insane = 0
     /// Log message type for logging entering into a function
     case entry = 1
     /// Log message type for logging exiting from a function
@@ -53,6 +55,8 @@ extension LoggerMessageType: CustomStringConvertible {
             return "WARNING"
         case .error:
             return "ERROR"
+        case .insane:
+            return "INSANE"
         }
     }
 }
@@ -90,6 +94,26 @@ public class Log {
     /// An instance of the logger. It should usually be the one and only reference
     /// of the actual `Logger` protocol implementation in the system.
     public static var logger: Logger?
+
+    /// Log a log message for use when in insane logging mode.
+    ///
+    /// - Parameter msg: The message to be logged
+    /// - Parameter functionName: The name of the function invoking the logger API.
+    ///                          Defaults to the actual name of the function invoking
+    ///                          this function.
+    /// - Parameter lineNum: The line in the source code of the function invoking the
+    ///                     logger API. Defaults to the actual line of the actual
+    ///                     function invoking this function.
+    /// - Parameter fileName: The file of the source code of the function invoking the
+    ///                      logger API. Defaults to the file of the actual function
+    ///                      invoking this function.
+    public static func insane(_ msg: @autoclosure () -> String, functionName: String = #function,
+        lineNum: Int = #line, fileName: String = #file ) {
+            if let logger = logger, logger.isLogging(.insane) {
+                logger.log( .insane, msg: msg(),
+                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+            }
+    }
 
     /// Log a log message for use when in verbose logging mode.
     ///
