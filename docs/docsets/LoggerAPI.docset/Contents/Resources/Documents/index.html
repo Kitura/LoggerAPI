@@ -58,7 +58,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/LoggerMessageType.html">LoggerMessageType</a>
@@ -80,19 +80,79 @@
         <section class="section">
           <div class="section-content">
             
-            <h1 id='loggerapi' class='heading'>LoggerAPI</h1>
+            <p align="center">
+    <a href="http://kitura.io/">
+        <img src="https://raw.githubusercontent.com/IBM-Swift/Kitura/master/Sources/Kitura/resources/kitura-bird.svg?sanitize=true" height="100" alt="Kitura">
+    </a>
+</p>
 
-<p><img src="https://img.shields.io/badge/os-macOS-green.svg?style=flat" alt="macOS">
-<img src="https://img.shields.io/badge/os-linux-green.svg?style=flat" alt="Linux">
-<img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2"></p>
-<h2 id='description' class='heading'>Description</h2>
+<p align="center">
+    <a href="https://www.kitura.io/">
+    <img src="https://img.shields.io/badge/docs-kitura.io-1FBCE4.svg" alt="Docs">
+    </a>
+    <a href="https://travis-ci.org/IBM-Swift/LoggerAPI">
+    <img src="https://travis-ci.org/IBM-Swift/LoggerAPI.svg?branch=master" alt="Build Status - Master">
+    </a>
+    <img src="https://img.shields.io/badge/os-macOS-green.svg?style=flat" alt="macOS">
+    <img src="https://img.shields.io/badge/os-linux-green.svg?style=flat" alt="Linux">
+    <img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
+    <a href="http://swift-at-ibm-slack.mybluemix.net/">
+    <img src="http://swift-at-ibm-slack.mybluemix.net/badge.svg" alt="Slack Status">
+    </a>
+</p>
+<h1 id='loggerapi' class='heading'>LoggerAPI</h1>
 
 <p>A logger protocol that provides a common logging interface for different kinds of loggers. In addition, a class with a set of static functions for logging within your code is provided.</p>
 
-<p>Kitura uses this API throughout its implementation when logging.</p>
+<p><a href="https://github.com/IBM-Swift/Kitura">Kitura</a> uses this API throughout its implementation when logging.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<ol>
+<li><strong>Add dependencies</strong></li>
+</ol>
+
+<p>Add the <code>LoggerAPI</code> package to the dependencies within your application’s <code>Package.swift</code> file. Substitute <code>&quot;x.x.x&quot;</code> with the latest <code>LoggerAPI</code> <a href="https://github.com/IBM-Swift/LoggerAPI/releases">release</a>:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/IBM-Swift/LoggerAPI.git"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"x.x.x"</span><span class="p">)</span>
+</code></pre>
+
+<p>Add <code>LoggerAPI</code> to your target&rsquo;s dependencies:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">target</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"example"</span><span class="p">,</span> <span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="s">"LoggerAPI"</span><span class="p">]),</span>
+</code></pre>
+
+<ol>
+<li><strong>Import package</strong></li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">LoggerAPI</span>
+</code></pre>
+
+<ol>
+<li><strong>Log messages</strong></li>
+</ol>
+
+<p>Add log messages to your application:</p>
+<pre class="highlight swift"><code><span class="kt">Log</span><span class="o">.</span><span class="nf">warning</span><span class="p">(</span><span class="s">"This is a warning."</span><span class="p">)</span>
+<span class="kt">Log</span><span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="s">"This is an error."</span><span class="p">)</span>
+</code></pre>
+
+<ol>
+<li><strong>Define a logger</strong></li>
+</ol>
+
+<p>You need to define a <code>logger</code> in order to output these messages:</p>
+<pre class="highlight swift"><code><span class="kt">Log</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="o">...</span>
+</code></pre>
+
+<p>You can write your own logger implementation. In the case of Kitura, it defines
+<code>HeliumLogger</code> as the logger used by <code>LoggerAPI</code>. You can find out more about HeliumLogger <a href="https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md">here</a>.</p>
+<h2 id='api-documentation' class='heading'>API documentation</h2>
+
+<p>For more information visit our <a href="http://ibm-swift.github.io/LoggerAPI/">API reference</a>.</p>
+<h2 id='community' class='heading'>Community</h2>
+
+<p>We love to talk server-side Swift, and Kitura. Join our <a href="http://swift-at-ibm-slack.mybluemix.net/">Slack</a> to meet the team!</p>
 <h2 id='license' class='heading'>License</h2>
 
-<p>Apache 2.0</p>
+<p>This library is licensed under Apache 2.0. Full license text is available in <a href="https://github.com/IBM-Swift/LoggerAPI/blob/master/LICENSE.txt">LICENSE</a>.</p>
 
           </div>
         </section>
@@ -101,8 +161,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2017-07-10)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/IBM-Swift/LoggerAPI" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2018-06-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

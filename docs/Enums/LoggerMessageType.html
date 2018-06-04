@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LoggerMessageType Enum Reference</title>
+    <title>LoggerMessageType Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
 
     <a name="//apple_ref/swift/Enum/LoggerMessageType" class="dashAnchor"></a>
 
-    <a title="LoggerMessageType Enum Reference"></a>
+    <a title="LoggerMessageType Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">LoggerAPI Reference</a>
       <img class="carat" src="../img/carat.png" />
-      LoggerMessageType Enum Reference
+      LoggerMessageType Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -59,7 +59,7 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/LoggerMessageType.html">LoggerMessageType</a>
@@ -83,23 +83,13 @@
             <h1>LoggerMessageType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LoggerMessageType</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LoggerMessageType</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>Copyright IBM Corporation 2016, 2017</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the <q>License</q>);
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at</p>
-
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
-<p>Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an <q>AS IS</q> BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.</p>
+            <p>The type of a particular log message. It is passed with the message to be logged to the
+actual logger implementation. It is also used to enable filtering of the log based
+on the minimal type to log.</p>
 
           </div>
         </section>
@@ -111,9 +101,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType5entryFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO5entryA2CmF"></a>
                     <a name="//apple_ref/swift/Element/entry" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType5entryFMS0_S0_">entry</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO5entryA2CmF">entry</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -121,14 +111,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging entering into a function</p>
+                        <p>Log message type for logging when entering into a function.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">entry</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">entry</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
 
                         </div>
                       </div>
@@ -142,9 +132,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType4exitFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO4exitA2CmF"></a>
                     <a name="//apple_ref/swift/Element/exit" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType4exitFMS0_S0_">exit</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO4exitA2CmF">exit</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -152,14 +142,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging exiting from a function</p>
+                        <p>Log message type for logging when exiting from a function.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">exit</span> <span class="o">=</span> <span class="mi">2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">exit</span> <span class="o">=</span> <span class="mi">2</span></code></pre>
 
                         </div>
                       </div>
@@ -173,9 +163,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType5debugFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO5debugA2CmF"></a>
                     <a name="//apple_ref/swift/Element/debug" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType5debugFMS0_S0_">debug</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO5debugA2CmF">debug</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -183,14 +173,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging a debugging message</p>
+                        <p>Log message type for logging a debugging message.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">debug</span> <span class="o">=</span> <span class="mi">3</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">debug</span> <span class="o">=</span> <span class="mi">3</span></code></pre>
 
                         </div>
                       </div>
@@ -204,9 +194,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType7verboseFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO7verboseA2CmF"></a>
                     <a name="//apple_ref/swift/Element/verbose" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType7verboseFMS0_S0_">verbose</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO7verboseA2CmF">verbose</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -214,14 +204,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging messages in verbose mode</p>
+                        <p>Log message type for logging messages in verbose mode.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span></code></pre>
 
                         </div>
                       </div>
@@ -235,9 +225,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType4infoFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO4infoA2CmF"></a>
                     <a name="//apple_ref/swift/Element/info" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType4infoFMS0_S0_">info</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO4infoA2CmF">info</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -245,14 +235,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging an informational message</p>
+                        <p>Log message type for logging an informational message.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">info</span> <span class="o">=</span> <span class="mi">5</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">info</span> <span class="o">=</span> <span class="mi">5</span></code></pre>
 
                         </div>
                       </div>
@@ -266,9 +256,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType7warningFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO7warningA2CmF"></a>
                     <a name="//apple_ref/swift/Element/warning" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType7warningFMS0_S0_">warning</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO7warningA2CmF">warning</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -276,14 +266,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging a warning message</p>
+                        <p>Log message type for logging a warning message.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">warning</span> <span class="o">=</span> <span class="mi">6</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">warning</span> <span class="o">=</span> <span class="mi">6</span></code></pre>
 
                         </div>
                       </div>
@@ -297,9 +287,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO9LoggerAPI17LoggerMessageType5errorFMS0_S0_"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO5errorA2CmF"></a>
                     <a name="//apple_ref/swift/Element/error" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO9LoggerAPI17LoggerMessageType5errorFMS0_S0_">error</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO5errorA2CmF">error</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -307,14 +297,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Log message type for logging an error message</p>
+                        <p>Log message type for logging an error message.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">7</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">7</span></code></pre>
 
                         </div>
                       </div>
@@ -328,9 +318,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vO9LoggerAPI17LoggerMessageType11descriptionSS"></a>
+                    <a name="/s:9LoggerAPI0A11MessageTypeO11descriptionSSvp"></a>
                     <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vO9LoggerAPI17LoggerMessageType11descriptionSS">description</a>
+                    <a class="token" href="#/s:9LoggerAPI0A11MessageTypeO11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -338,14 +328,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Convert a <code>LoggerMessageType</code> into a pritable format</p>
+                        <p>Convert a <code>LoggerMessageType</code> into a printable format.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -360,8 +350,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2017-07-10)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2018 <a class="link" href="https://github.com/IBM-Swift/LoggerAPI" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2018-06-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
