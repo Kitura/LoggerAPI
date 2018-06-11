@@ -28,7 +28,7 @@ A logger protocol that provides a common logging interface for different kinds o
 
 ## Usage
 
-1. **Add dependencies**
+#### Add dependencies
 
 Add the `LoggerAPI` package to the dependencies within your application’s `Package.swift` file. Substitute `"x.x.x"` with the latest `LoggerAPI` [release](https://github.com/IBM-Swift/LoggerAPI/releases):
 
@@ -40,13 +40,13 @@ Add `LoggerAPI` to your target's dependencies:
 .target(name: "example", dependencies: ["LoggerAPI"]),
 ```
 
-2. **Import package**
+#### Import package
 
 ```swift
 import LoggerAPI
 ````
 
-3. **Log messages**
+#### Log messages
 
 Add log messages to your application:
 ```swift
@@ -54,7 +54,7 @@ Log.warning("This is a warning.")
 Log.error("This is an error.")
 ```
 
-4. **Define a logger**
+#### Define a logger
 
 You need to define a `logger` in order to output these messages:
 ```swift
