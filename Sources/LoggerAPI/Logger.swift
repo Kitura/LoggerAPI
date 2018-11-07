@@ -91,6 +91,13 @@ public class Log {
     /// of the actual `Logger` protocol implementation in the system.
     public static var logger: Logger?
 
+#if PRODUCTION
+    @inlinable
+    public class func verbose(_ msg: @autoclosure () -> String, functionName: String = "",
+                            lineNum: Int = 0, fileName: String = "") {
+        return
+    }
+#else
     /// Log a log message for use when in verbose logging mode.
     ///
     /// - Parameter msg: The message to be logged
@@ -103,6 +110,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public static func verbose(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
             if let logger = logger, logger.isLogging(.verbose) {
@@ -110,6 +118,7 @@ public class Log {
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
+#endif
 
     /// Log an informational message.
     ///
@@ -123,6 +132,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func info(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.info) {
@@ -143,6 +153,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func warning(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.warning) {
@@ -163,6 +174,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func error(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.error) {
@@ -171,7 +183,14 @@ public class Log {
             }
     }
 
-    /// Log a debuging message.
+#if PRODUCTION
+    @inlinable
+    public class func debug(_ msg: @autoclosure () -> String, functionName: String = "",
+                            lineNum: Int = 0, fileName: String = "") {
+        return
+    }
+#else
+    /// Log a debugging message.
     ///
     /// - Parameter msg: The message to be logged
     /// - Parameter functionName: The name of the function invoking the logger API.
@@ -183,14 +202,23 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func debug(_ msg: @autoclosure () -> String, functionName: String = #function,
-        lineNum: Int = #line, fileName: String = #file) {
-            if let logger = logger, logger.isLogging(.debug) {
-                logger.log( .debug, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
-            }
+                            lineNum: Int = #line, fileName: String = #file) {
+        if let logger = logger, logger.isLogging(.debug) {
+            logger.log( .debug, msg: msg(),
+                        functionName: functionName, lineNum: lineNum, fileName: fileName)
+        }
     }
-    
+#endif
+
+#if PRODUCTION
+    @inlinable
+    public class func entry(_ msg: @autoclosure () -> String, functionName: String = "",
+                            lineNum: Int = 0, fileName: String = "") {
+        return
+    }
+#else
     /// Log a message when entering a function.
     ///
     /// - Parameter msg: The message to be logged
@@ -203,6 +231,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func entry(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.entry) {
@@ -210,7 +239,15 @@ public class Log {
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
-    
+#endif
+
+#if PRODUCTION
+    @inlinable
+    public class func exit(_ msg: @autoclosure () -> String, functionName: String = "",
+                            lineNum: Int = 0, fileName: String = "") {
+        return
+    }
+#else
     /// Log a message when exiting a function.
     ///
     /// - Parameter msg: The message to be logged
@@ -223,6 +260,7 @@ public class Log {
     /// - Parameter fileName: The file of the source code of the function invoking the
     ///                      logger API. Defaults to the file of the actual function
     ///                      invoking this function.
+    @inlinable
     public class func exit(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.exit) {
@@ -230,6 +268,7 @@ public class Log {
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
     }
+#endif
     
     /// A function that will indicate if a message with a specified type (`LoggerMessageType`)
     /// will be output in the log (i.e. will not be filtered out).
@@ -238,6 +277,7 @@ public class Log {
     ///
     /// - Returns: A Bool indicating whether, if true, or not a message of the specified type
     ///           (`LoggerMessageType`) will be output.
+    @inlinable
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
