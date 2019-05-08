@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+import Logging
+
 /// Implement the `CustomStringConvertible` protocol for the `LoggerMessageType` enum
 extension LoggerMessageType: CustomStringConvertible {
     /// Convert a `LoggerMessageType` into a printable format.
@@ -71,6 +73,8 @@ public class Log {
     /// of the `Logger` protocol implementation in the system.
     public static var logger: Logger?
 
+    public static var swiftLogger: Logging.Logger? = Logging.Logger(label: "com.ibm.LoggerAPI.globalLogger")
+
     /// Log a message for use when in verbose logging mode.
     ///
     /// - Parameter msg: The message to be logged.
@@ -89,6 +93,9 @@ public class Log {
                 logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .info {
+            logger.info("\(msg())")
+        }
     }
 
     /// Log an informational message.
@@ -109,6 +116,9 @@ public class Log {
                 logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .notice {
+            logger.notice("\(msg())")
+        }
     }
 
     /// Log a warning message.
@@ -129,6 +139,9 @@ public class Log {
                 logger.log( .warning, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .warning {
+            logger.warning("\(msg())")
+        }
     }
 
     /// Log an error message.
@@ -149,6 +162,9 @@ public class Log {
                 logger.log( .error, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .error {
+            logger.error("\(msg())")
+        }
     }
 
     /// Log a debugging message.
@@ -169,6 +185,9 @@ public class Log {
                 logger.log( .debug, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .debug {
+            logger.debug("\(msg())")
+        }
     }
     
     /// Log a message when entering a function.
@@ -189,6 +208,9 @@ public class Log {
                 logger.log(.entry, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .trace {
+            logger.trace("\(msg())")
+        }
     }
     
     /// Log a message when exiting a function.
@@ -209,6 +231,9 @@ public class Log {
                 logger.log(.exit, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+        if let logger = swiftLogger, logger.logLevel <= .trace {
+            logger.trace("\(msg())")
+        }
     }
     
     /// Indicates if a message with a specified type (`LoggerMessageType`) will be in the logger
@@ -223,6 +248,26 @@ public class Log {
             return false
         }
         return logger.isLogging(level)
+    }
+
+    public class func isSwiftLogging(_ level: LoggerMessageType) -> Bool {
+        guard let logger = swiftLogger else {
+            return false
+        }
+        switch level {
+        case .error:
+            return logger.logLevel <= .error
+        case .warning:
+            return logger.logLevel <= .warning
+        case .info:
+            return logger.logLevel <= .notice
+        case .verbose:
+            return logger.logLevel <= .info
+        case .debug:
+            return logger.logLevel <= .debug
+        case .entry, .exit:
+            return logger.logLevel <= .trace
+        }
     }
 }
 
