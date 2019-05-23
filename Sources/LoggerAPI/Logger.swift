@@ -15,6 +15,7 @@
  **/
 
 import Logging
+import Dispatch
 
 /// Implement the `CustomStringConvertible` protocol for the `LoggerMessageType` enum
 extension LoggerMessageType: CustomStringConvertible {
@@ -71,9 +72,18 @@ public class Log {
 
     /// An instance of the logger. It should usually be the one and only reference
     /// of the `Logger` protocol implementation in the system.
+    /// This can be used in addition to `swiftLogger`, in which case log messages
+    /// will be sent to both loggers.
     public static var logger: Logger?
 
-    public static var swiftLogger: Logging.Logger? = Logging.Logger(label: "com.ibm.LoggerAPI.globalLogger")
+    /// An instance of a swift-log Logger. If set, LoggerAPI will direct log messages
+    /// to swift-log. This can be used in addition to `logger`, in which case log
+    /// messages will be sent to both loggers.
+    public static var swiftLogger: Logging.Logger? = nil
+
+    // Locks to provide thread safety when writing to loggers
+    private static var logLock = pthread_rwlock_t()
+    private static var swiftLogLock = pthread_rwlock_t()
 
     /// Log a message for use when in verbose logging mode.
     ///
@@ -90,11 +100,15 @@ public class Log {
     public static func verbose(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
             if let logger = logger, logger.isLogging(.verbose) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .info {
+        if let logger = swiftLogger, isSwiftLogging(.verbose) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.info("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -113,11 +127,15 @@ public class Log {
     public class func info(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.info) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .notice {
+        if let logger = swiftLogger, isSwiftLogging(.info) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.notice("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -136,11 +154,15 @@ public class Log {
     public class func warning(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.warning) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log( .warning, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .warning {
+        if let logger = swiftLogger, isSwiftLogging(.warning) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.warning("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -159,11 +181,15 @@ public class Log {
     public class func error(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.error) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log( .error, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .error {
+        if let logger = swiftLogger, isSwiftLogging(.error) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.error("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -182,11 +208,15 @@ public class Log {
     public class func debug(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.debug) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log( .debug, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .debug {
+        if let logger = swiftLogger, isSwiftLogging(.debug) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.debug("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
@@ -205,11 +235,15 @@ public class Log {
     public class func entry(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.entry) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log(.entry, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                           functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .trace {
+        if let logger = swiftLogger, isSwiftLogging(.entry) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.trace("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
@@ -228,18 +262,22 @@ public class Log {
     public class func exit(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.exit) {
+                pthread_rwlock_wrlock(&logLock)
                 logger.log(.exit, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                           functionName: functionName, lineNum: lineNum, fileName: fileName)
+                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, logger.logLevel <= .trace {
+        if let logger = swiftLogger, isSwiftLogging(.exit) {
+            pthread_rwlock_wrlock(&swiftLogLock)
             logger.trace("\(msg())")
+            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
     /// Indicates if a message with a specified type (`LoggerMessageType`) will be in the logger
     /// output (i.e. will not be filtered out).
     ///
-    /// - Parameter type: The type of message (`LoggerMessageType`).
+    /// - Parameter level: The type of message (`LoggerMessageType`).
     ///
     /// - Returns: A Boolean indicating whether a message of the specified type
     ///           (`LoggerMessageType`) will be in the logger output.
@@ -250,6 +288,28 @@ public class Log {
         return logger.isLogging(level)
     }
 
+    /// Indicates whether a swift-log Logger is configured to log at the specified level.
+    ///
+    /// Note that because there are slight differences in the log levels that LoggerAPI
+    /// and swift-log define, their equivalence is mapped as follows:
+    /// ```
+    ///    LoggerAPI:     swift-log:
+    ///    .error     ->  .error
+    ///    .warning   ->  .warning
+    ///    .info      ->  .notice
+    ///    .verbose   ->  .info
+    ///    .debug     ->  .debug
+    ///    .entry     ->  .trace
+    ///    .exit      ->  .trace
+    /// ```
+    ///
+    /// For example, a swift-log Logger configured to log at the `.notice` level will log
+    /// messages from LoggerAPI at a level of `.info` or higher.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
+    ///            will be logged via swift-log.
     public class func isSwiftLogging(_ level: LoggerMessageType) -> Bool {
         guard let logger = swiftLogger else {
             return false
