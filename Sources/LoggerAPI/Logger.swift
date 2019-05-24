@@ -16,6 +16,7 @@
 
 import Logging
 import Dispatch
+import Foundation
 
 /// Implement the `CustomStringConvertible` protocol for the `LoggerMessageType` enum
 extension LoggerMessageType: CustomStringConvertible {
@@ -67,23 +68,49 @@ public protocol Logger {
 
 }
 
+extension NSLock {
+    func withLock<T>(_ body: () throws -> T) rethrows -> T {
+        self.lock()
+        defer {
+            self.unlock()
+        }
+        return try body()
+    }
+}
+
 /// A class of static members used by anyone who wants to log messages.
 public class Log {
+
+    private static var _logger: Logger?
+    private static var _loggerLock: NSLock = NSLock()
 
     /// An instance of the logger. It should usually be the one and only reference
     /// of the `Logger` protocol implementation in the system.
     /// This can be used in addition to `swiftLogger`, in which case log messages
     /// will be sent to both loggers.
-    public static var logger: Logger?
+    public static var logger: Logger? {
+        get {
+            return self._loggerLock.withLock { self._logger }
+        }
+        set {
+            self._loggerLock.withLock { self._logger = newValue }
+        }
+    }
+
+    private static var _swiftLogger: Logging.Logger?
+    private static var _swiftLoggerLock: NSLock = NSLock()
 
     /// An instance of a swift-log Logger. If set, LoggerAPI will direct log messages
     /// to swift-log. This can be used in addition to `logger`, in which case log
     /// messages will be sent to both loggers.
-    public static var swiftLogger: Logging.Logger? = nil
-
-    // Locks to provide thread safety when writing to loggers
-    private static var logLock = pthread_rwlock_t()
-    private static var swiftLogLock = pthread_rwlock_t()
+    public static var swiftLogger: Logging.Logger? {
+        get {
+            return self._swiftLoggerLock.withLock { self._swiftLogger }
+        }
+        set {
+            self._swiftLoggerLock.withLock { self._swiftLogger = newValue }
+        }
+    }
 
     /// Log a message for use when in verbose logging mode.
     ///
@@ -100,15 +127,11 @@ public class Log {
     public static func verbose(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file ) {
             if let logger = logger, logger.isLogging(.verbose) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.verbose) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.info("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -127,15 +150,11 @@ public class Log {
     public class func info(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.info) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.info) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.notice("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -154,15 +173,11 @@ public class Log {
     public class func warning(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.warning) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log( .warning, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.warning) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.warning("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -181,15 +196,11 @@ public class Log {
     public class func error(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.error) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log( .error, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.error) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.error("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
 
@@ -208,15 +219,11 @@ public class Log {
     public class func debug(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.debug) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log( .debug, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.debug) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.debug("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
@@ -235,15 +242,11 @@ public class Log {
     public class func entry(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.entry) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log(.entry, msg: msg(),
                            functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.entry) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.trace("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
@@ -262,15 +265,11 @@ public class Log {
     public class func exit(_ msg: @autoclosure () -> String, functionName: String = #function,
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.exit) {
-                pthread_rwlock_wrlock(&logLock)
                 logger.log(.exit, msg: msg(),
                            functionName: functionName, lineNum: lineNum, fileName: fileName)
-                pthread_rwlock_unlock(&logLock)
             }
-        if let logger = swiftLogger, isSwiftLogging(.exit) {
-            pthread_rwlock_wrlock(&swiftLogLock)
+        if let logger = swiftLogger {
             logger.trace("\(msg())")
-            pthread_rwlock_unlock(&swiftLogLock)
         }
     }
     
