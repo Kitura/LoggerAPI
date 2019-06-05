@@ -130,9 +130,7 @@ public class Log {
                 logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.info("\(msg())")
-        }
+            swiftLogger?.info("\(msg())")
     }
 
     /// Log an informational message.
@@ -153,9 +151,7 @@ public class Log {
                 logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.notice("\(msg())")
-        }
+            swiftLogger?.notice("\(msg())")
     }
 
     /// Log a warning message.
@@ -176,9 +172,7 @@ public class Log {
                 logger.log( .warning, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.warning("\(msg())")
-        }
+            swiftLogger?.warning("\(msg())")
     }
 
     /// Log an error message.
@@ -199,9 +193,7 @@ public class Log {
                 logger.log( .error, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.error("\(msg())")
-        }
+            swiftLogger?.error("\(msg())")
     }
 
     /// Log a debugging message.
@@ -222,9 +214,7 @@ public class Log {
                 logger.log( .debug, msg: msg(),
                             functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.debug("\(msg())")
-        }
+            swiftLogger?.debug("\(msg())")
     }
     
     /// Log a message when entering a function.
@@ -245,9 +235,7 @@ public class Log {
                 logger.log(.entry, msg: msg(),
                            functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.trace("\(msg())")
-        }
+            swiftLogger?.trace("\(msg())")
     }
     
     /// Log a message when exiting a function.
@@ -268,19 +256,28 @@ public class Log {
                 logger.log(.exit, msg: msg(),
                            functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
-        if let logger = swiftLogger {
-            logger.trace("\(msg())")
-        }
+            swiftLogger?.trace("\(msg())")
     }
     
-    /// Indicates if a message with a specified type (`LoggerMessageType`) will be in the logger
-    /// output (i.e. will not be filtered out).
+    /// Indicates if a message with a specified type (`LoggerMessageType`) will be logged
+    /// by some configured logger (i.e. will not be filtered out). This could be a Logger
+    /// conforming to LoggerAPI, swift-log or both.
     ///
     /// - Parameter level: The type of message (`LoggerMessageType`).
     ///
     /// - Returns: A Boolean indicating whether a message of the specified type
-    ///           (`LoggerMessageType`) will be in the logger output.
+    ///           (`LoggerMessageType`) will be logged.
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
+        return isLoggingToLoggerAPI(level) || isLoggingToSwiftLog(level)
+    }
+
+    /// Indicates whether a LoggerAPI Logger is configured to log at the specified level.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
+    ///           will be logged via the registered `LoggerAPI.Logger`.
+    public class func isLoggingToLoggerAPI(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
         }
@@ -308,8 +305,8 @@ public class Log {
     /// - Parameter level: The type of message (`LoggerMessageType`).
     ///
     /// - Returns: A Boolean indicating whether a message of the specified type
-    ///            will be logged via swift-log.
-    public class func isSwiftLogging(_ level: LoggerMessageType) -> Bool {
+    ///            will be logged via the registered `Logging.Logger`.
+    public class func isLoggingToSwiftLog(_ level: LoggerMessageType) -> Bool {
         guard let logger = swiftLogger else {
             return false
         }
