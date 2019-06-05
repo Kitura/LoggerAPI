@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corporation 2016, 2017
+ * Copyright IBM Corporation 2016 - 2019
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  **/
 
 import Logging
-import Dispatch
 import Foundation
 
 /// Implement the `CustomStringConvertible` protocol for the `LoggerMessageType` enum
