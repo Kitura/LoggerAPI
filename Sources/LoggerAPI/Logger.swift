@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corporation 2016, 2017
+ * Copyright IBM Corporation 2016 - 2019
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+
+import Logging
+import Foundation
 
 /// Implement the `CustomStringConvertible` protocol for the `LoggerMessageType` enum
 extension LoggerMessageType: CustomStringConvertible {
@@ -64,12 +67,49 @@ public protocol Logger {
 
 }
 
+extension NSLock {
+    func withLock<T>(_ body: () throws -> T) rethrows -> T {
+        self.lock()
+        defer {
+            self.unlock()
+        }
+        return try body()
+    }
+}
+
 /// A class of static members used by anyone who wants to log messages.
 public class Log {
 
+    private static var _logger: Logger?
+    private static var _loggerLock: NSLock = NSLock()
+
     /// An instance of the logger. It should usually be the one and only reference
     /// of the `Logger` protocol implementation in the system.
-    public static var logger: Logger?
+    /// This can be used in addition to `swiftLogger`, in which case log messages
+    /// will be sent to both loggers.
+    public static var logger: Logger? {
+        get {
+            return self._loggerLock.withLock { self._logger }
+        }
+        set {
+            self._loggerLock.withLock { self._logger = newValue }
+        }
+    }
+
+    private static var _swiftLogger: Logging.Logger?
+    private static var _swiftLoggerLock: NSLock = NSLock()
+
+    /// An instance of a swift-log Logger. If set, LoggerAPI will direct log messages
+    /// to swift-log. This can be used in addition to `logger`, in which case log
+    /// messages will be sent to both loggers.
+    public static var swiftLogger: Logging.Logger? {
+        get {
+            return self._swiftLoggerLock.withLock { self._swiftLogger }
+        }
+        set {
+            self._swiftLoggerLock.withLock { self._swiftLogger = newValue }
+        }
+    }
 
     /// Log a message for use when in verbose logging mode.
     ///
@@ -89,6 +129,7 @@ public class Log {
                 logger.log( .verbose, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.info("\(msg())")
     }
 
     /// Log an informational message.
@@ -109,6 +150,7 @@ public class Log {
                 logger.log( .info, msg: msg(),
                     functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.notice("\(msg())")
     }
 
     /// Log a warning message.
@@ -127,8 +169,9 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.warning) {
                 logger.log( .warning, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.warning("\(msg())")
     }
 
     /// Log an error message.
@@ -147,8 +190,9 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.error) {
                 logger.log( .error, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.error("\(msg())")
     }
 
     /// Log a debugging message.
@@ -167,8 +211,9 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.debug) {
                 logger.log( .debug, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                            functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.debug("\(msg())")
     }
     
     /// Log a message when entering a function.
@@ -187,8 +232,9 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.entry) {
                 logger.log(.entry, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                           functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.trace("\(msg())")
     }
     
     /// Log a message when exiting a function.
@@ -207,22 +253,76 @@ public class Log {
         lineNum: Int = #line, fileName: String = #file) {
             if let logger = logger, logger.isLogging(.exit) {
                 logger.log(.exit, msg: msg(),
-                    functionName: functionName, lineNum: lineNum, fileName: fileName)
+                           functionName: functionName, lineNum: lineNum, fileName: fileName)
             }
+            swiftLogger?.trace("\(msg())")
     }
     
-    /// Indicates if a message with a specified type (`LoggerMessageType`) will be in the logger
-    /// output (i.e. will not be filtered out).
+    /// Indicates if a message with a specified type (`LoggerMessageType`) will be logged
+    /// by some configured logger (i.e. will not be filtered out). This could be a Logger
+    /// conforming to LoggerAPI, swift-log or both.
     ///
-    /// - Parameter type: The type of message (`LoggerMessageType`).
+    /// Note that due to differences in the log levels defined by LoggerAPI and swift-log,
+    /// their equivalence is mapped as follows:
+    /// ```
+    ///    LoggerAPI:     swift-log:
+    ///    .error     ->  .error
+    ///    .warning   ->  .warning
+    ///    .info      ->  .notice
+    ///    .verbose   ->  .info
+    ///    .debug     ->  .debug
+    ///    .entry     ->  .trace
+    ///    .exit      ->  .trace
+    /// ```
+    ///
+    /// For example, a swift-log Logger configured to log at the `.notice` level will log
+    /// messages from LoggerAPI at a level of `.info` or higher.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
     ///
     /// - Returns: A Boolean indicating whether a message of the specified type
-    ///           (`LoggerMessageType`) will be in the logger output.
+    ///           (`LoggerMessageType`) will be logged.
     public class func isLogging(_ level: LoggerMessageType) -> Bool {
+        return isLoggingToLoggerAPI(level) || isLoggingToSwiftLog(level)
+    }
+
+    /// Indicates whether a LoggerAPI Logger is configured to log at the specified level.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
+    ///           will be logged via the registered `LoggerAPI.Logger`.
+    private class func isLoggingToLoggerAPI(_ level: LoggerMessageType) -> Bool {
         guard let logger = logger else {
             return false
         }
         return logger.isLogging(level)
+    }
+
+    /// Indicates whether a swift-log Logger is configured to log at the specified level.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
+    ///            will be logged via the registered `Logging.Logger`.
+    private class func isLoggingToSwiftLog(_ level: LoggerMessageType) -> Bool {
+        guard let logger = swiftLogger else {
+            return false
+        }
+        switch level {
+        case .error:
+            return logger.logLevel <= .error
+        case .warning:
+            return logger.logLevel <= .warning
+        case .info:
+            return logger.logLevel <= .notice
+        case .verbose:
+            return logger.logLevel <= .info
+        case .debug:
+            return logger.logLevel <= .debug
+        case .entry, .exit:
+            return logger.logLevel <= .trace
+        }
     }
 }
 
