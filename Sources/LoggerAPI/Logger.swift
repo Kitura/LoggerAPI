@@ -262,31 +262,8 @@ public class Log {
     /// by some configured logger (i.e. will not be filtered out). This could be a Logger
     /// conforming to LoggerAPI, swift-log or both.
     ///
-    /// - Parameter level: The type of message (`LoggerMessageType`).
-    ///
-    /// - Returns: A Boolean indicating whether a message of the specified type
-    ///           (`LoggerMessageType`) will be logged.
-    public class func isLogging(_ level: LoggerMessageType) -> Bool {
-        return isLoggingToLoggerAPI(level) || isLoggingToSwiftLog(level)
-    }
-
-    /// Indicates whether a LoggerAPI Logger is configured to log at the specified level.
-    ///
-    /// - Parameter level: The type of message (`LoggerMessageType`).
-    ///
-    /// - Returns: A Boolean indicating whether a message of the specified type
-    ///           will be logged via the registered `LoggerAPI.Logger`.
-    public class func isLoggingToLoggerAPI(_ level: LoggerMessageType) -> Bool {
-        guard let logger = logger else {
-            return false
-        }
-        return logger.isLogging(level)
-    }
-
-    /// Indicates whether a swift-log Logger is configured to log at the specified level.
-    ///
-    /// Note that because there are slight differences in the log levels that LoggerAPI
-    /// and swift-log define, their equivalence is mapped as follows:
+    /// Note that due to differences in the log levels defined by LoggerAPI and swift-log,
+    /// their equivalence is mapped as follows:
     /// ```
     ///    LoggerAPI:     swift-log:
     ///    .error     ->  .error
@@ -304,8 +281,31 @@ public class Log {
     /// - Parameter level: The type of message (`LoggerMessageType`).
     ///
     /// - Returns: A Boolean indicating whether a message of the specified type
+    ///           (`LoggerMessageType`) will be logged.
+    public class func isLogging(_ level: LoggerMessageType) -> Bool {
+        return isLoggingToLoggerAPI(level) || isLoggingToSwiftLog(level)
+    }
+
+    /// Indicates whether a LoggerAPI Logger is configured to log at the specified level.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
+    ///           will be logged via the registered `LoggerAPI.Logger`.
+    private class func isLoggingToLoggerAPI(_ level: LoggerMessageType) -> Bool {
+        guard let logger = logger else {
+            return false
+        }
+        return logger.isLogging(level)
+    }
+
+    /// Indicates whether a swift-log Logger is configured to log at the specified level.
+    ///
+    /// - Parameter level: The type of message (`LoggerMessageType`).
+    ///
+    /// - Returns: A Boolean indicating whether a message of the specified type
     ///            will be logged via the registered `Logging.Logger`.
-    public class func isLoggingToSwiftLog(_ level: LoggerMessageType) -> Bool {
+    private class func isLoggingToSwiftLog(_ level: LoggerMessageType) -> Bool {
         guard let logger = swiftLogger else {
             return false
         }
