@@ -56,12 +56,15 @@ Log.error("This is an error.")
 
 #### Define a logger
 
-You need to define a `logger` in order to output these messages:
+You need to define a `logger` in order to output these messages. You may wish to write your own `Logger` implementation, or you can use `HeliumLogger` that writes to standard output:
 ```swift
-Log.logger = ...
+import LoggerAPI
+import HeliumLogger
+
+let myLogger = HeliumLogger(.info)
+Log.logger = myLogger
 ```
-You can write your own logger implementation. In the case of Kitura, it defines
-`HeliumLogger` as the logger used by `LoggerAPI`. You can find out more about HeliumLogger [here](https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md).
+You can find out more about HeliumLogger [here](https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md).
 
 #### Logging messages to swift-log
 
