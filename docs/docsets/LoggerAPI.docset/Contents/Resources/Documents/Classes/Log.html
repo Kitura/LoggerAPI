@@ -110,14 +110,45 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>An instance of the logger. It should usually be the one and only reference
-of the <code><a href="../Protocols/Logger.html">Logger</a></code> protocol implementation in the system.</p>
+of the <code><a href="../Protocols/Logger.html">Logger</a></code> protocol implementation in the system.
+This can be used in addition to <code><a href="../Classes/Log.html#/s:9LoggerAPI3LogC05swiftA07Logging0A0VSgvpZ">swiftLogger</a></code>, in which case log messages
+will be sent to both loggers.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Logger.html">Logger</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Logger.html">Logger</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9LoggerAPI3LogC05swiftA07Logging0A0VSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/swiftLogger" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9LoggerAPI3LogC05swiftA07Logging0A0VSgvpZ">swiftLogger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An instance of a swift-log Logger. If set, LoggerAPI will direct log messages
+to swift-log. This can be used in addition to <code><a href="../Classes/Log.html#/s:9LoggerAPI3LogC6loggerAA0A0_pSgvpZ">logger</a></code>, in which case log
+messages will be sent to both loggers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">swiftLogger</span><span class="p">:</span> <span class="kt">Logging</span><span class="o">.</span><span class="kt"><a href="../Protocols/Logger.html">Logger</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -760,8 +791,24 @@ of the <code><a href="../Protocols/Logger.html">Logger</a></code> protocol imple
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Indicates if a message with a specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be in the logger
-output (i.e. will not be filtered out).</p>
+                        <p>Indicates if a message with a specified type (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be logged
+by some configured logger (i.e. will not be filtered out). This could be a Logger
+conforming to LoggerAPI, swift-log or both.</p>
+
+<p>Note that due to differences in the log levels defined by LoggerAPI and swift-log,
+their equivalence is mapped as follows:</p>
+<pre class="highlight swift"><code>   <span class="kt">LoggerAPI</span><span class="p">:</span>     <span class="n">swift</span><span class="o">-</span><span class="nv">log</span><span class="p">:</span>
+   <span class="o">.</span><span class="n">error</span>     <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">error</span>
+   <span class="o">.</span><span class="n">warning</span>   <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">warning</span>
+   <span class="o">.</span><span class="n">info</span>      <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">notice</span>
+   <span class="o">.</span><span class="n">verbose</span>   <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">info</span>
+   <span class="o">.</span><span class="n">debug</span>     <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">debug</span>
+   <span class="o">.</span><span class="n">entry</span>     <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">trace</span>
+   <span class="o">.</span><span class="n">exit</span>      <span class="o">-&gt;</span>  <span class="o">.</span><span class="n">trace</span>
+</code></pre>
+
+<p>For example, a swift-log Logger configured to log at the <code>.notice</code> level will log
+messages from LoggerAPI at a level of <code>.info</code> or higher.</p>
 
                       </div>
                       <div class="declaration">
@@ -779,7 +826,7 @@ output (i.e. will not be filtered out).</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>type</em>
+                                <em>level</em>
                                 </code>
                               </td>
                               <td>
@@ -794,7 +841,7 @@ output (i.e. will not be filtered out).</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>A Boolean indicating whether a message of the specified type
-      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be in the logger output.</p>
+      (<code><a href="../Enums/LoggerMessageType.html">LoggerMessageType</a></code>) will be logged.</p>
                       </div>
                     </section>
                   </div>
@@ -807,8 +854,8 @@ output (i.e. will not be filtered out).</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://github.com/IBM-Swift/LoggerAPI" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2018-06-11)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/IBM-Swift/LoggerAPI" target="_blank" rel="external">IBM</a>. All rights reserved. (Last updated: 2019-06-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
