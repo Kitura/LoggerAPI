@@ -79,7 +79,7 @@ Log.swiftLogger = myLogger
 ```
 If both `logger` and `swiftLogger` are set, then log messages will be sent to both logging backends. The log level configured for a LoggerAPI Logger and a swift-log Logger are independent, so may be used to log at different levels.
 
-Note that because the heirarchy of log levels defined by LoggerAPI and swift-log is slightly different, a mapping is defined between the levels. See the documentation for `Log.isLogging()` for details.
+Note that because the hierarchy of log levels defined by LoggerAPI and swift-log is slightly different, a mapping is defined between the levels. See the documentation for `Log.isLogging()` for details.
 
 ## API documentation
 
