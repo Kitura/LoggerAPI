@@ -56,12 +56,30 @@ Log.error("This is an error.")
 
 #### Define a logger
 
-You need to define a `logger` in order to output these messages:
+You need to define a `logger` in order to output these messages. You may wish to write your own `Logger` implementation, or you can use `HeliumLogger` that writes to standard output:
 ```swift
-Log.logger = ...
+import LoggerAPI
+import HeliumLogger
+
+let myLogger = HeliumLogger(.info)
+Log.logger = myLogger
 ```
-You can write your own logger implementation. In the case of Kitura, it defines
-`HeliumLogger` as the logger used by `LoggerAPI`. You can find out more about HeliumLogger [here](https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md).
+You can find out more about HeliumLogger [here](https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md).
+
+#### Logging messages to swift-log
+
+You can direct your log messages to be logged via [swift-log](https://github.com/apple/swift-log) by setting the `swiftLogger` property:
+```swift
+import LoggerAPI
+import Logging
+
+let myLogger = Logging.Logger(label: "myLogger")
+myLogger.logLevel = .notice
+Log.swiftLogger = myLogger
+```
+If both `logger` and `swiftLogger` are set, then log messages will be sent to both logging backends. The log level configured for a LoggerAPI Logger and a swift-log Logger are independent, so may be used to log at different levels.
+
+Note that because the heirarchy of log levels defined by LoggerAPI and swift-log is slightly different, a mapping is defined between the levels. See the documentation for `Log.isLogging()` for details.
 
 ## API documentation
 
