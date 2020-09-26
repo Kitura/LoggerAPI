@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="http://kitura.io/">
-        <img src="https://raw.githubusercontent.com/IBM-Swift/Kitura/master/Sources/Kitura/resources/kitura-bird.svg?sanitize=true" height="100" alt="Kitura">
+    <a href="http://kitura.dev/">
+        <img src="https://raw.githubusercontent.com/Kitura/Kitura/master/Sources/Kitura/resources/kitura-bird.svg?sanitize=true" height="100" alt="Kitura">
     </a>
 </p>
 
@@ -9,8 +9,8 @@
     <a href="https://ibm-swift.github.io/LoggerAPI/index.html">
     <img src="https://img.shields.io/badge/apidoc-LoggerAPI-1FBCE4.svg?style=flat" alt="APIDoc">
     </a>
-    <a href="https://travis-ci.org/IBM-Swift/LoggerAPI">
-    <img src="https://travis-ci.org/IBM-Swift/LoggerAPI.svg?branch=master" alt="Build Status - Master">
+    <a href="https://travis-ci.org/Kitura/LoggerAPI">
+    <img src="https://travis-ci.org/Kitura/LoggerAPI.svg?branch=master" alt="Build Status - Master">
     </a>
     <img src="https://img.shields.io/badge/os-macOS-green.svg?style=flat" alt="macOS">
     <img src="https://img.shields.io/badge/os-linux-green.svg?style=flat" alt="Linux">
@@ -24,16 +24,16 @@
 
 A logger protocol that provides a common logging interface for different kinds of loggers. In addition, a class with a set of static functions for logging within your code is provided.
 
-[Kitura](https://github.com/IBM-Swift/Kitura) uses this API throughout its implementation when logging.
+[Kitura](https://github.com/Kitura/Kitura) uses this API throughout its implementation when logging.
 
 ## Usage
 
 #### Add dependencies
 
-Add the `LoggerAPI` package to the dependencies within your application’s `Package.swift` file. Substitute `"x.x.x"` with the latest `LoggerAPI` [release](https://github.com/IBM-Swift/LoggerAPI/releases):
+Add the `LoggerAPI` package to the dependencies within your application’s `Package.swift` file. Substitute `"x.x.x"` with the latest `LoggerAPI` [release](https://github.com/Kitura/LoggerAPI/releases):
 
 ```swift
-.package(url: "https://github.com/IBM-Swift/LoggerAPI.git", from: "x.x.x")
+.package(url: "https://github.com/Kitura/LoggerAPI.git", from: "x.x.x")
 ```
 Add `LoggerAPI` to your target's dependencies:
 ```swift
@@ -64,7 +64,7 @@ import HeliumLogger
 let myLogger = HeliumLogger(.info)
 Log.logger = myLogger
 ```
-You can find out more about HeliumLogger [here](https://github.com/IBM-Swift/HeliumLogger/blob/master/README.md).
+You can find out more about HeliumLogger [here](https://github.com/Kitura/HeliumLogger/blob/master/README.md).
 
 #### Logging messages to swift-log
 
@@ -91,4 +91,4 @@ We love to talk server-side Swift, and Kitura. Join our [Slack](http://swift-at-
 
 ## License
 
-This library is licensed under Apache 2.0. Full license text is available in [LICENSE](https://github.com/IBM-Swift/LoggerAPI/blob/master/LICENSE.txt).
+This library is licensed under Apache 2.0. Full license text is available in [LICENSE](https://github.com/Kitura/LoggerAPI/blob/master/LICENSE.txt).
