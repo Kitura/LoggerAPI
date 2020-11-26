@@ -1,5 +1,5 @@
 module: LoggerAPI
-author: IBM and Kitura
+author: IBM and Kitura Project Authors
 github_url: https://github.com/Kitura/LoggerAPI/
 
 theme: fullwidth
@@ -10,6 +10,4 @@ readme: README.md
 
 skip_undocumented: false
 hide_documentation_coverage: false
-
-xcodebuild_arguments: [-project, LoggerAPI.xcodeproj, -target, LoggerAPI, LIBRARY_SEARCH_PATHS=.build/debug]
 
