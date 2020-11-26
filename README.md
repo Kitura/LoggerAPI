@@ -6,7 +6,7 @@
 
 
 <p align="center">
-    <a href="https://ibm-swift.github.io/LoggerAPI/index.html">
+    <a href="https://kitura.github.io/LoggerAPI/index.html">
     <img src="https://img.shields.io/badge/apidoc-LoggerAPI-1FBCE4.svg?style=flat" alt="APIDoc">
     </a>
     <a href="https://travis-ci.org/Kitura/LoggerAPI">
