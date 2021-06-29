@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name        = "LoggerAPI"
-  s.version     = "1.9.200"
+  s.version     = "2.0.0"
   s.summary     = "A logger protocol that provides a common logging interface for different kinds of loggers."
   s.homepage    = "https://github.com/Kitura/LoggerAPI"
   s.license     = { :type => "Apache License, Version 2.0" }
