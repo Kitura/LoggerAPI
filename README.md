@@ -26,6 +26,14 @@ A logger protocol that provides a common logging interface for different kinds o
 
 [Kitura](https://github.com/Kitura/Kitura) uses this API throughout its implementation when logging.
 
+## Prerequisites
+
+### Swift
+
+* Swift Open Source `swift-5.1-RELEASE` toolchain (**Minimum REQUIRED for latest release**)
+* Swift Open Source `swift-5.4-RELEASE` toolchain (**Recommended**)
+* Swift toolchain included in *Xcode Version 11.0 or higher*.
+
 ## Usage
 
 #### Add dependencies
