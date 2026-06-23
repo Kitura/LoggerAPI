@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name              = "LoggerAPI"
   s.module_name       = 'LoggerAPI'
-  s.version           = "2.0.0"
+  s.version           = "2.1.0"
   s.cocoapods_version = '~> 1.16'
   s.summary           = "A logger protocol that provides a common logging interface for different kinds of loggers."
   s.homepage          = "https://github.com/Kitura/LoggerAPI"
